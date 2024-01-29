@@ -6,6 +6,9 @@ const mongoose = require('mongoose');
 
 const routes = require('./routes/homeRoutes');
 
+app.set('view engine', 'pug');
+app.set('views', 'views');
+
 const PORT = 3400;
 const start = async () => {
     mongoose.connect(mongoConnection)

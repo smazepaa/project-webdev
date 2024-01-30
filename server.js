@@ -1,9 +1,8 @@
 const express = require('express');
 const app = express();
 
-const mongoConnection = 'mongodb+srv://sofmazepa:JqBEdWLh!3Ma5Lh@main-database.scmde4j.mongodb.net/?retryWrites=true&w=majority'
-
 const mongoose = require('mongoose');
+const mongoConnection = 'mongodb+srv://sofmazepa:JqBEdWLh!3Ma5Lh@main-database.scmde4j.mongodb.net/?retryWrites=true&w=majority'
 
 const routes = require('./routes/homeRoutes');
 
@@ -28,6 +27,5 @@ const start = async () => {
 };
 
 app.use('/', routes);
-
 
 start();

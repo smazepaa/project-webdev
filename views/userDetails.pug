@@ -1,0 +1,28 @@
+doctype html
+html
+  head
+    title User Details
+    // You can include stylesheet links or other head elements here
+  body
+    h1 User Details
+
+    //- Check if the user exists
+    if user
+      //- Display user details
+      ul
+        li
+          strong Username: 
+          span= user.username
+        li
+          strong Email: 
+          span= user.email
+        li
+          strong Password: 
+          span= user.password
+
+    else
+      p User not found.
+
+    //- Link to go back to the user list
+    a(href="/") Back to User List
+

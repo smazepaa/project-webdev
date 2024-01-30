@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
-
 const bodyParser = require('body-parser');
+
 
 router.get('/', async (req, res) => {
     try {
@@ -18,28 +18,40 @@ router.get('/new', (req, res) => {
     res.render('form');
 });
 
+router.get('/:id', async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+
+        res.render('userDetails', { user: user });
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
+
 router.post('/', async (req, res) => {
     try {
         const existingUsername = await User.findOne({ username: req.body.username });
         const existingEmail = await User.findOne({ email: req.body.email });
 
         if (existingUsername && existingEmail) {
-            console.log('User with the same username and email already exists');
+            let message = 'User with the same username and email already exists';
+            console.log(message);
             //return res.redirect('/new'); // Redirect back to the form
-            return res.send('User with the same username and email already exists')
+            return res.send(message)
         }
         else if (existingUsername) {
-            console.log('User with the same username already exists');
-            // return res.redirect('/new'); // Redirect back to the form
-            return res.send('User with the same username already exists')
+            let message = 'User with the same username already exists';
+            console.log(message);
+            //return res.redirect('/new'); // Redirect back to the form
+            return res.send(message)
         }
         else if (existingEmail) {
-            console.log('User with the same email already exists');
+            let message = 'User with the same email already exists';
+            console.log(message);
             //return res.redirect('/new'); // Redirect back to the form
-            return res.send('User with the same email already exists')
+            return res.send(message)
         }
 
-        // Create and save the new user if no duplicates are found
         const newUser = new User(req.body);
         await newUser.save();
         console.log('User saved');
@@ -49,7 +61,6 @@ router.post('/', async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
-
 
 
 module.exports = router;

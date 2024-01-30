@@ -32,9 +32,11 @@
     <Content Include="routes\homeRoutes.js" />
     <Content Include="server.js" />
     <Content Include="package.json" />
+    <Content Include="views\userDetails.pug" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="routes\" />
+    <Folder Include="views\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
   <ProjectExtensions>

@@ -2,9 +2,13 @@ const express = require('express');
 const app = express();
 
 const mongoConnection = 'mongodb+srv://sofmazepa:JqBEdWLh!3Ma5Lh@main-database.scmde4j.mongodb.net/?retryWrites=true&w=majority'
+
 const mongoose = require('mongoose');
 
 const routes = require('./routes/homeRoutes');
+
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.set('view engine', 'pug');
 app.set('views', 'views');

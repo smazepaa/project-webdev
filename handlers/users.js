@@ -1,9 +1,9 @@
-const User = require('../models/user');
+const User = require("../models/user");
 
-async function createUserHandler(req, res) {
+async function createUser(username, email, password, isAdmin) {
     try {
-        const existingUsername = await User.findOne({ username: req.body.username });
-        const existingEmail = await User.findOne({ email: req.body.email });
+        const existingUsername = await User.findOne({ username: username });
+        const existingEmail = await User.findOne({ email: email });
 
         let baseMessage = 'User with the same';
         let message = '';
@@ -18,21 +18,16 @@ async function createUserHandler(req, res) {
             message = `${baseMessage} email already exists`;
         }
         else {
-            const newUser = new User(req.body);
+            const newUser = new User({ username, email, password, isAdmin});
             await newUser.save();
             message = 'User saved';
         }
+        return(message)
 
-        console.log(message);
-        // Send the message and include a button to go back to the list
-        res.send(`
-        <p>${message}</p>
-        <a href="/">Go Back to User List</a>
-    `);
     } catch (error) {
         console.error(error);
-        res.status(500).send('Internal Server Error');
+        return(error)
     }
 }
 
-module.exports = createUserHandler;
+module.exports = createUser;

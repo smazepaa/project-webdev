@@ -29,18 +29,16 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="handlers\createUserHandler.js" />
-    <Content Include="handlers\getByIdHandler.js" />
-    <Content Include="handlers\userListHandler.js" />
-    <Content Include="routes\homeRoutes.js" />
+    <Content Include="controllers\usersController.js" />
+    <Content Include="handlers\users.js" />
+    <Content Include="routes\userRoutes.js" />
     <Content Include="server.js" />
     <Content Include="package.json" />
-    <Content Include="views\userDetails.pug" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="controllers\" />
     <Folder Include="handlers\" />
     <Folder Include="routes\" />
-    <Folder Include="views\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
   <ProjectExtensions>

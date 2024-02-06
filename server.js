@@ -4,13 +4,11 @@ const app = express();
 const mongoose = require('mongoose');
 const mongoConnection = 'mongodb+srv://sofmazepa:JqBEdWLh!3Ma5Lh@main-database.scmde4j.mongodb.net/?retryWrites=true&w=majority'
 
-const routes = require('./routes/homeRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
-
-app.set('view engine', 'pug');
-app.set('views', 'views');
+app.use(express.json());
 
 const PORT = 3400;
 const start = async () => {
@@ -26,6 +24,6 @@ const start = async () => {
         });
 };
 
-app.use('/', routes);
+app.use('/users', userRoutes);
 
 start();

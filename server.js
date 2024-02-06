@@ -4,7 +4,7 @@ const app = express();
 const mongoose = require('mongoose');
 const mongoConnection = 'mongodb+srv://sofmazepa:JqBEdWLh!3Ma5Lh@main-database.scmde4j.mongodb.net/?retryWrites=true&w=majority'
 
-const userRoutes = require('./routes/userRoutes');
+const routes = require('./routes');
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -24,6 +24,8 @@ const start = async () => {
         });
 };
 
-app.use('/users', userRoutes);
+app.use('/users', routes.userRoutes);
+app.use('/', routes.homeRoutes);
+
 
 start();

@@ -1,0 +1,73 @@
+{
+  "endpoints": [
+    {
+      "path": "/users",
+      "methods": [
+        {
+          "type": "GET",
+          "description": "Retrieves a list of all users from the database.",
+          "response": "A JSON with the list of users on success an error message on failure."
+        },
+        {
+          "type": "POST",
+          "description": "Creates a new user and adds them to the database.",
+          "response": "Returns the 'User Created' message on success or an error message on failure.",
+          "request body example": {
+            "username": "test user",
+            "email": "test@gmail.com",
+            "password": "Qwerty123",
+            "isAdmin": false
+          }
+        }
+      ]
+    },
+    {
+      "path": "/users/:id",
+      "methods": [
+        {
+          "type": "GET",
+          "description": "Fetches information about a specific user identified by their id.",
+          "response": "A JSON containing the requested user's information (username, email, password, isAdmin) if found, or an error message if not.",
+          "request url example": "http://localhost:3400/users/65c21623c5e21224746928e0"
+        },
+        {
+          "type": "DELETE",
+          "description": "Deletes a specific user identified by their id from the JSON database.",
+          "response": "A message indicating that the user was deleted on success, or an error message if the user cannot be found.",
+          "request url example": "http://localhost:3400/users/65c241be22ba9674c9224174"
+        },
+        {
+          "type": "PUT",
+          "description": "Updates the entire information of a specific user identified by their id. This method requires all user information to be provided in the request body.",
+          "response": "A message indicating that the user's information was updated on success, or an error message if the update fails.",
+          "request url example": "http://localhost:3400/users/65c21623c5e21224746928e0",
+          "request body example": {
+            "username": "newUsername",
+            "email": "newEmail@example.com",
+            "password": "newPassword",
+            "isAdmin": true
+          }
+        },
+        {
+          "type": "PATCH",
+          "description": "Updates partial information of a specific user identified by their id. Only the fields to be updated need to be provided in the request body.",
+          "response": "A message indicating that the specified user's information was partially updated on success, or an error message if the update fails.",
+          "request url example": "http://localhost:3400/users/65c21623c5e21224746928e0",
+          "request body example": {
+            "email": "updatedEmail@example.com"
+          }
+        }
+      ]
+    },
+    {
+      "path": "/",
+      "methods": [
+        {
+          "type": "GET",
+          "description": "Displays an information about endpoints",
+          "response": "A JSON with information on each endpoint (path, method(s),description, response)."
+        }
+      ]
+    }
+  ]
+}

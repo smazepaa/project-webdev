@@ -29,8 +29,12 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="assets\endpoints.json" />
+    <Content Include="controllers\homeControllers.js" />
     <Content Include="controllers\usersController.js" />
     <Content Include="handlers\users.js" />
+    <Content Include="routes\homeRoutes.js" />
+    <Content Include="routes\index.js" />
     <Content Include="routes\userRoutes.js" />
     <Content Include="server.js" />
     <Content Include="package.json" />
@@ -38,6 +42,7 @@
   <ItemGroup>
     <Folder Include="controllers\" />
     <Folder Include="handlers\" />
+    <Folder Include="assets\" />
     <Folder Include="routes\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />

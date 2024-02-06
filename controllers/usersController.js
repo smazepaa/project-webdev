@@ -63,11 +63,12 @@ async function patchUser(req, res) {
         .catch(() => res.send('User NOT Updated'));
 }
 
+
 module.exports = {
     getUserList,
     postUser,
     getUserById,
     deleteUser,
     putUser,
-    patchUser
+    patchUser,
 };

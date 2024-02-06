@@ -1,5 +1,6 @@
 const User = require("../models/user");
 
+// from hw5
 async function createUser(username, email, password, isAdmin) {
     try {
         const existingUsername = await User.findOne({ username: username });
@@ -20,7 +21,7 @@ async function createUser(username, email, password, isAdmin) {
         else {
             const newUser = new User({ username, email, password, isAdmin});
             await newUser.save();
-            message = 'User saved';
+            message = 'User created';
         }
         return(message)
 
@@ -30,4 +31,27 @@ async function createUser(username, email, password, isAdmin) {
     }
 }
 
-module.exports = createUser;
+// from practice Feb 2
+async function updateUser(id, userData) {
+    try {
+        return await User.findOneAndUpdate({ _id: id }, { $set: userData });
+    } catch (error) {
+        console.error('error', error);
+        return false;
+    }
+}
+
+async function updateUserFields(id, userData) {
+    try {
+        return await User.findOneAndUpdate({ _id: id }, { $set: userData });
+    } catch (error) {
+        console.error('error', error);
+        return false;
+    }
+}
+
+module.exports = {
+    createUser,
+    updateUser,
+    updateUserFields
+};

@@ -1,6 +1,7 @@
 const User = require("../models/user");
-const handlers = require('../handlers/users');
+const { createUser, updateUser, updateUserFields } = require('../handlers/users');
 
+// from hw5
 async function getUserList(req, res) {
     try {
         const users = await User.find();
@@ -11,18 +12,62 @@ async function getUserList(req, res) {
     }
 }
 
+async function getUserById(req, res) {
+    try {
+        const user = await User.findById(req.params.id);
+        res.json(user);
+    } catch (error) {
+        res.status(500).send('User NOT Found');
+    }
+}
 
+
+// from practice Feb 2
 function postUser(req, res) {
     const username = req.body.username;
     const email = req.body.email;
     const password = req.body.password;
     const isAdmin = req.body.isAdmin;
-    handlers(username, email, password, isAdmin)
+    createUser(username, email, password, isAdmin)
         .then((message) => res.send(message))
-        .catch(() => res.send('user NOT created'));
+        .catch(() => res.status(500).send('User NOT Created'));
+}
+
+async function deleteUser(req, res) {
+    try {
+        await User.deleteOne({ _id: req.params.id });
+        res.send('User Deleted');
+    } catch (error) {
+        res.status(500).send('User NOT Deleted');
+    }
+}
+
+function putUser(req, res) {
+    const userId = req.params.id;
+    const userObj = {};
+    userObj.username = req.body.username;
+    userObj.email = req.body.email;
+    userObj.password = req.body.password;
+    userObj.isAdmin = req.body.isAdmin;
+    
+    updateUser(userId, userObj)
+        .then(() => res.send('User Updated'))
+        .catch(() => res.send('User NOT Updated'));
+}
+
+async function patchUser(req, res) {
+    const userId = req.params.id;
+    const userData = req.body;
+    updateUserFields(userId, userData)
+        .then(() => res.send('User Field(s) Updated'))
+        .catch(() => res.send('User NOT Updated'));
 }
 
 module.exports = {
     getUserList,
-    postUser
+    postUser,
+    getUserById,
+    deleteUser,
+    putUser,
+    patchUser
 };

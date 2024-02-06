@@ -1,16 +1,19 @@
 const express = require('express');
 const app = express();
-
 const mongoose = require('mongoose');
-const mongoConnection = 'mongodb+srv://sofmazepa:JqBEdWLh!3Ma5Lh@main-database.scmde4j.mongodb.net/?retryWrites=true&w=majority'
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
 const routes = require('./routes');
 
-const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cookieParser())
+
 
 const PORT = 3400;
+const mongoConnection = 'mongodb+srv://sofmazepa:JqBEdWLh!3Ma5Lh@main-database.scmde4j.mongodb.net/?retryWrites=true&w=majority'
+
 const start = async () => {
     mongoose.connect(mongoConnection)
         .then(() => {
@@ -25,6 +28,7 @@ const start = async () => {
 };
 
 app.use('/users', routes.userRoutes);
+app.use('/cookies', routes.cookieRoutes);
 app.use('/', routes.homeRoutes);
 
 

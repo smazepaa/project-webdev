@@ -30,9 +30,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="assets\endpoints.json" />
+    <Content Include="controllers\cookieControllers.js" />
     <Content Include="controllers\homeControllers.js" />
     <Content Include="controllers\usersController.js" />
+    <Content Include="handlers\cookies.js" />
     <Content Include="handlers\users.js" />
+    <Content Include="routes\cookieRoutes.js" />
     <Content Include="routes\homeRoutes.js" />
     <Content Include="routes\index.js" />
     <Content Include="routes\userRoutes.js" />

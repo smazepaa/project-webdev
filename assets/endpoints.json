@@ -1,6 +1,121 @@
 {
   "endpoints": [
     {
+      "path": "/",
+      "methods": [
+        {
+          "type": "GET",
+          "description": "Displays an information about endpoints",
+          "response": "A JSON with information on each endpoint (path, method(s),description, response)."
+        }
+      ]
+    },
+    {
+      "path": "/cookies/set",
+      "methods": [
+        {
+          "type": "GET",
+          "description": "Sets a cookie with the specified name and value. Optionally, the cookie can be set as HttpOnly based on a query parameter.",
+          "response": "A message indicating the cookie has been set, including the cookie's name, value, and HttpOnly status. If the cookie name or value is not specified, returns an error message.",
+          "query parameters": [
+            {
+              "name": "name",
+              "type": "string",
+              "description": "The name of the cookie."
+            },
+            {
+              "name": "value",
+              "type": "string",
+              "description": "The value of the cookie."
+            },
+            {
+              "name": "http_only",
+              "type": "boolean",
+              "description": "Optional. If set to 'true', marks the cookie as HttpOnly. Defaults to false if not specified."
+            }
+          ],
+          "examples": [
+            {
+              "request url": "http://localhost:3400/cookies/set?name=Cookie1&value=Cookievalue1",
+              "description": "Sets a non-HttpOnly cookie named 'Cookie1' with the value 'Cookievalue1'."
+            },
+            {
+              "request url": "http://localhost:3400/cookies/set?name=Cookie2&value=Cookievalue2&http_only=true",
+              "description": "Sets an HttpOnly cookie named 'Cookie2' with the value 'Cookievalue2'."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/cookies/get/:name",
+      "methods": [
+        {
+          "type": "GET",
+          "description": "Retreives the value of a corresponding cookie by its name.",
+          "response": "A cookie's value on success and error message on failure",
+          "examples": [
+            {
+              "request url": "http://localhost:3400/cookies/get/Cookie1",
+              "description": "Returns the value of a Cookie1 cookie"
+            },
+            {
+              "request url": "http://localhost:3400/cookies/get/Cookie100",
+              "description": "Returns 'Cookie not set'"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/headers/set",
+      "methods": [
+        {
+          "type": "GET",
+          "description": "Sets a header with the specified name and value.",
+          "response": "A message indicating the header has been set, including the headers's name and value. If name or value is not specified, returns an error message.",
+          "query parameters": [
+            {
+              "name": "name",
+              "type": "string",
+              "description": "The name of the header."
+            },
+            {
+              "name": "value",
+              "type": "string",
+              "description": "The value of the header."
+            }
+          ],
+          "examples": [
+            {
+              "request url": "http://localhost:3400/headers/set?name=Header1&value=HeaderValue1",
+              "description": "Sets a header named 'Header1' with the value 'HeaderValue1'."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/headers/get/:name",
+      "methods": [
+        {
+          "type": "GET",
+          "description": "Retreives the value of a corresponding header by its name.",
+          "response": "A header's value on success and error message on failure",
+          "examples": [
+            {
+              "request url": "http://localhost:3400/headers/get/Content-Type",
+              "description": "Returns the value of a Content-Type header"
+            },
+            {
+              "request url": "http://localhost:3400/headers/get/Header100",
+              "description": "Returns 'Header not set'"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "path": "/users",
       "methods": [
         {
@@ -56,16 +171,6 @@
           "request body example": {
             "email": "updatedEmail@example.com"
           }
-        }
-      ]
-    },
-    {
-      "path": "/",
-      "methods": [
-        {
-          "type": "GET",
-          "description": "Displays an information about endpoints",
-          "response": "A JSON with information on each endpoint (path, method(s),description, response)."
         }
       ]
     }

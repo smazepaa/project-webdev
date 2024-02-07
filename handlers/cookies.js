@@ -20,7 +20,12 @@ function setCookie(res, cookieName, cookieValue, httpOnlyFlag) {
 function getCookie(res, req, cookieName) {
     try {
         const value = req.cookies[cookieName];
-        res.send(`Value of the cookie: ${value}`)
+        if (value != null) {
+            res.send(`Value of the cookie: ${value}`)
+        }
+        else {
+            res.send('Cookie not set');
+        }
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');

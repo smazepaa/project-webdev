@@ -31,11 +31,14 @@
   <ItemGroup>
     <Content Include="assets\endpoints.json" />
     <Content Include="controllers\cookieControllers.js" />
+    <Content Include="controllers\headerControllers.js" />
     <Content Include="controllers\homeControllers.js" />
-    <Content Include="controllers\usersController.js" />
+    <Content Include="controllers\userControllers.js" />
     <Content Include="handlers\cookies.js" />
+    <Content Include="handlers\headers.js" />
     <Content Include="handlers\users.js" />
     <Content Include="routes\cookieRoutes.js" />
+    <Content Include="routes\headerRoutes.js" />
     <Content Include="routes\homeRoutes.js" />
     <Content Include="routes\index.js" />
     <Content Include="routes\userRoutes.js" />

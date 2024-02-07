@@ -3,12 +3,14 @@ const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const cors = require('cors')
 
 const routes = require('./routes');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser())
+app.use(cors())
 
 
 const PORT = 3400;
@@ -29,6 +31,7 @@ const start = async () => {
 
 app.use('/users', routes.userRoutes);
 app.use('/cookies', routes.cookieRoutes);
+app.use('/headers', routes.headerRoutes);
 app.use('/', routes.homeRoutes);
 
 

@@ -1,38 +1,46 @@
 const express = require('express');
+const http = require('http');
+const WebSocket = require('ws');
+
 const app = express();
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-const cors = require('cors')
 
-const routes = require('./routes');
+app.listen(3002, () => {
+    console.log(`Server is running on http://localhost:${3002}`);
+});
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(cookieParser())
-app.use(cors())
+const server = http.createServer(app);
+const wss = new WebSocket.Server({ server: server });
 
+wss.on('connection', (ws) => {
+    console.log('Client connected');
 
-const PORT = 3400;
-const mongoConnection = 'mongodb+srv://sofmazepa:JqBEdWLh!3Ma5Lh@main-database.scmde4j.mongodb.net/?retryWrites=true&w=majority'
+    ws.send('Welcome to the WebSocket server from node js!');
 
-const start = async () => {
-    mongoose.connect(mongoConnection)
-        .then(() => {
-            console.log('Successfully connected to the database');
-            app.listen(PORT, () => {
-                console.log(`Server is running on http://localhost:${PORT}`);
-            });
-        })
-        .catch((error) => {
-            console.error('Error connecting to the database:', error);
+    ws.on('message', (message) => {
+        console.log(`Received message: ${message}`);
+        wss.clients.forEach((client) => {
+            if (client.readyState === WebSocket.OPEN) {
+                client.send('from server ' + message + ' pong');
+            }
         });
-};
+    });
 
-app.use('/users', routes.userRoutes);
-app.use('/cookies', routes.cookieRoutes);
-app.use('/headers', routes.headerRoutes);
-app.use('/', routes.homeRoutes);
+    ws.on('open', () => {
+        console.log('WebSocket connection opened');
+        ws.send(JSON.stringify({ method: 'subscribed' }));
+    });
 
 
-start();
+    ws.on('close', () => {
+        console.log('Client disconnected');
+    });
+
+    ws.on('error', (error) => {
+        console.error('WebSocket error:', error.message);
+    });
+});
+
+const WS_PORT = 3001;
+server.listen(WS_PORT, () => {
+    console.log(`WS Server listening on port ${WS_PORT}`);
+});
